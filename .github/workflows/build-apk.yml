@@ -11,21 +11,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up JDK
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
       - name: Build APK
-        run: |
-          unzip -q *.zip -d project
-cd "$(dirname "$(find project -name gradlew -type f -print -quit)")"
-chmod +x gradlew
-./gradlew assembleDebug
+        run: chmod +x gradlew && ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Nabiyoulahi-Travel-APK
+          name: app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
