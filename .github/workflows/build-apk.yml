@@ -19,8 +19,10 @@ jobs:
 
       - name: Build APK
         run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          unzip -q *.zip -d project
+cd "$(dirname "$(find project -name gradlew -type f -print -quit)")"
+chmod +x gradlew
+./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
